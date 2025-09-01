@@ -86,6 +86,15 @@ class Cart:
                 return
         print(f"{product_name} not found in cart")
     
+    def view_cart(self):
+     if not self.__items:
+        print("🛒 Your cart is empty.")
+        return
+     print("\n🛒 Cart Contents:")
+     for product, quantity in self.__items:
+        price = product.get_discounted_price(15)
+        print(f"{quantity} x {product.name} @ ₹{price:.2f} each")
+    
     def checkout(self):
         total=0
         print("\n Reciept:")
@@ -115,8 +124,9 @@ while True:
     print("1. View Products")
     print("2. Add Product to Cart")
     print("3. Remove Product from Cart")
-    print("4. Checkout")
-    print("5. Exit")
+    print("4. View Cart Items")
+    print("5. Checkout")
+    print("6. Exit")
 
     choice = input("Enter your choice (1-5): ")
 
@@ -139,9 +149,13 @@ while True:
         cart.remove_product(name)
 
     elif choice == "4":
-        cart.checkout()
+        
+        cart.view_cart()
 
     elif choice == "5":
+        cart.checkout()
+
+    elif choice == "6":
         print("Thank you for shopping! 🛍️")
         break
 
