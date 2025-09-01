@@ -31,7 +31,7 @@ class Electronics(Product):
 
     def get_discounted_price(self,discount_percent):
         discounted = self.get_price() * (1-discount_percent/100)
-        print(f"discounted price is {discounted}")
+        return discounted
     
 
 class Clothing(Product):
@@ -45,7 +45,7 @@ class Clothing(Product):
 
     def get_discounted_price(self,discount_percent):
         discounted = self.get_price() * (1-discount_percent/100)
-        print(f"discounted price is {discounted}")
+        return discounted
 
 class Groceries(Product):
     def __init__(self,name,price,stock):
@@ -58,7 +58,7 @@ class Groceries(Product):
 
     def get_discounted_price(self,discount_percent):
         discounted = self.get_price() * (1-discount_percent/100)
-        print(f"discounted price is {discounted}")
+        return discounted
         
 
 class Cart:
@@ -83,3 +83,12 @@ class Cart:
                 return
             print(f"{product_name} not found in cart")
     
+    def checkout(self):
+        total=0
+        print("\n Reciept:")
+        for product,qty in self.__items:
+            discount = product.get_discounted_price(15)
+            line_total = discount * qty
+            total+= line_total
+            print(f"{qty} x {product.name} @₹{discount} = ₹{line_total}")
+        print("\n total amount is: ₹{total}")
