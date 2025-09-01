@@ -1,4 +1,7 @@
 #making a BASE CLASS PRODUCT(encapsulation)
+from itertools import product
+
+
 class Product:
     def __init__(self,name,price,stock):
         self.name = name
@@ -96,27 +99,52 @@ class Cart:
 
 if __name__ == "__main__":
     # Create products
- laptop = Electronics("Laptop", 50000, 5, 2)
+ laptop = Electronics("Laptop", 50000, 50, 2)
+ phone = Electronics("phone", 25000, 80, 1)
  shirt = Clothing("Shirt", 800, 10, "Cotton")
+ jeans = Clothing("jeans", 1020, 10, "Cotton")
  rice = Groceries("Rice (5kg)", 300, 20)
  atta = Groceries("Atta (5kg)", 180, 50)
 
-# Display products
-laptop.display()
-shirt.display()
-rice.display()
-
-# cart instacne
+ products = [laptop,phone,shirt,jeans,rice,atta]
 cart = Cart()
 
-#objects
-cart.add_products(laptop, 3)
-cart.add_products(shirt, 2)
-cart.add_products(rice, 3)
-cart.add_products(atta, 5)
 
-# Remove one item
-cart.remove_product("Shirt")
+while True:
+    print("\n🛒 Welcome to the Store!")
+    print("1. View Products")
+    print("2. Add Product to Cart")
+    print("3. Remove Product from Cart")
+    print("4. Checkout")
+    print("5. Exit")
 
-# Checkout
-cart.checkout()
+    choice = input("Enter your choice (1-5): ")
+
+    if choice == "1":
+        print("\n📦 Available Products:")
+        for i, prod in enumerate(products):
+            print(f"{i+1}. ", end="")
+            prod.display()
+
+    elif choice == "2":
+        prod_num = int(input("Enter product number to add: ")) - 1
+        quantity = int(input("Enter quantity: "))
+        if 0 <= prod_num < len(products):
+            cart.add_products(products[prod_num], quantity)
+        else:
+            print("Invalid product number.")
+
+    elif choice == "3":
+        name = input("Enter product name to remove: ")
+        cart.remove_product(name)
+
+    elif choice == "4":
+        cart.checkout()
+
+    elif choice == "5":
+        print("Thank you for shopping! 🛍️")
+        break
+
+    else:
+        print("Invalid choice. Please try again.")
+
