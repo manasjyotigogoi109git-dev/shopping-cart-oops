@@ -74,4 +74,12 @@ class Cart:
             print(f"Not enough stock of the product {product.name}")
 
 
+    def remove_product(self,product_name):
+        for i,(prod,qty) in enumerate(self.__items):
+            if prod.name == product_name:
+                product_name.reduce_stock(-qty)
+                del self.__items[i]
+                print(f"Removed {product_name} from cart")
+                return
+            print(f"{product_name} not found in cart")
     
