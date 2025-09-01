@@ -61,18 +61,17 @@ class Groceries(Product):
         print(f"discounted price is {discounted}")
         
 
+class Cart:
+    def __init__(self):
+        self.__items = []  # Private list of tuples: (Product, quantity)
+
+    def add_products(self,product,quantity):
+        if product.get_stock() >= quantity:
+            product.reduce_stock(quantity)
+            self.__items.append((product,quantity))
+            print(f"Added {quantity} x {product.name} to the cart")
+        else:
+            print(f"Not enough stock of the product {product.name}")
 
 
-
-#testcode
-if __name__ == "__main__":
-    items = [ 
-        Electronics("Laptop",75000,30,3),
-        Clothing("Jeans",900,20,'cotton'),
-        Groceries("potato",30,200)
-    ]
-
-for item in items:
-     item.display()
-     item.get_discounted_price(15) # Apply 15% discount 
-     print("---")
+    
