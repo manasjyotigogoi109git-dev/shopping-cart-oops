@@ -77,11 +77,11 @@ class Cart:
     def remove_product(self,product_name):
         for i,(prod,qty) in enumerate(self.__items):
             if prod.name == product_name:
-                product_name.reduce_stock(-qty)
+                prod.reduce_stock(-qty)
                 del self.__items[i]
                 print(f"Removed {product_name} from cart")
                 return
-            print(f"{product_name} not found in cart")
+        print(f"{product_name} not found in cart")
     
     def checkout(self):
         total=0
@@ -91,4 +91,32 @@ class Cart:
             line_total = discount * qty
             total+= line_total
             print(f"{qty} x {product.name} @₹{discount} = ₹{line_total}")
-        print("\n total amount is: ₹{total}")
+        print(f"\n total amount is: ₹ {total}")
+
+
+if __name__ == "__main__":
+    # Create products
+ laptop = Electronics("Laptop", 50000, 5, 2)
+ shirt = Clothing("Shirt", 800, 10, "Cotton")
+ rice = Groceries("Rice (5kg)", 300, 20)
+ atta = Groceries("Atta (5kg)", 180, 50)
+
+# Display products
+laptop.display()
+shirt.display()
+rice.display()
+
+# cart instacne
+cart = Cart()
+
+#objects
+cart.add_products(laptop, 3)
+cart.add_products(shirt, 2)
+cart.add_products(rice, 3)
+cart.add_products(atta, 5)
+
+# Remove one item
+cart.remove_product("Shirt")
+
+# Checkout
+cart.checkout()
